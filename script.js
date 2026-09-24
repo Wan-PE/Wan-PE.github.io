@@ -44,17 +44,13 @@ function buildDemoCard(demo, index, promptText, peText) {
       <div class="video-col">
         <div class="video-card">
           <div class="video-label wo">w/o PE</div>
-          <video class="gallery-video" loop muted autoplay playsinline controls preload="metadata">
-            <source src="${demo.wo}" type="video/mp4">
-          </video>
+          <video class="gallery-video" loop muted playsinline controls preload="none" data-src="${demo.wo}"></video>
         </div>
       </div>
       <div class="video-col">
         <div class="video-card">
           <div class="video-label pe">w/ WanPE</div>
-          <video class="gallery-video" loop muted autoplay playsinline controls preload="metadata">
-            <source src="${demo.pe}" type="video/mp4">
-          </video>
+          <video class="gallery-video" loop muted playsinline controls preload="none" data-src="${demo.pe}"></video>
         </div>
         <details class="pe-details">
           <summary><i class="fas fa-chevron-right"></i> WanPE enhanced prompt</summary>
@@ -132,13 +128,17 @@ function observeVideos() {
       entries.forEach((entry) => {
         const v = entry.target;
         if (entry.isIntersecting) {
+          if (!v.src && v.dataset.src) {
+            v.src = v.dataset.src;
+            v.load();
+          }
           v.play().catch(() => {});
         } else {
           v.pause();
         }
       });
     },
-    { threshold: 0.35 }
+    { rootMargin: "400px 0px", threshold: 0.01 }
   );
 
   videos.forEach((v) => io.observe(v));
