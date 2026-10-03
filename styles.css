@@ -213,11 +213,11 @@ body {
   justify-content: center;
   margin-top: 22px;
 }
-.links a {
+.links a,
+.links .link-placeholder {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  text-decoration: none;
   color: #fff;
   background: #23232f;
   padding: 10px 20px;
@@ -226,7 +226,9 @@ body {
   font-size: 0.92rem;
   transition: background 0.2s, transform 0.15s;
 }
+.links a { text-decoration: none; }
 .links a:hover { background: var(--accent); transform: translateY(-1px); }
+.links .link-placeholder { opacity: 0.72; cursor: default; }
 
 /* ---------- sections ---------- */
 .section-card h2,
